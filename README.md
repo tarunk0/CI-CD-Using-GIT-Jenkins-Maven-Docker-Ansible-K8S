@@ -286,7 +286,7 @@ Part-3 CI/CD Using Git, Jenkins, Maven, Docker, Ansible and Kubernetes!
      ### Github Repository url:
     
    - Repository Url:
-     - Your github url -- 
+     - Your github url -- https://github.com/tarunk0/CI-CD-Using-GIT-Jenkins-Maven-Docker-Ansible-K8S.git
      - Branch: /main
      
      ![image](https://user-images.githubusercontent.com/92631457/186559828-49eb9f29-2558-40ee-8894-c527aa25c4fd.png)
@@ -308,7 +308,10 @@ Part-3 CI/CD Using Git, Jenkins, Maven, Docker, Ansible and Kubernetes!
    ### Create a Jenkins Job -- CI Job(Maven Project)
    
    - Project name: deploy_on_k8s_ci
-   - Github Url: <--paste-your-github-url-here-->
+   - Github Url: https://github.com/tarunk0/CI-CD-Using-GIT-Jenkins-Maven-Docker-Ansible-K8S.git
+ 
+   ![image](https://user-images.githubusercontent.com/92631457/186775991-d9ba55c7-ef0b-41a2-8e2a-392fca5e542a.png)
+
    - Build --> Root POM --> pom.xml
      - Goals and actions: clean install package
    - Post build actions:
@@ -318,6 +321,9 @@ Part-3 CI/CD Using Git, Jenkins, Maven, Docker, Ansible and Kubernetes!
        - Source file: Kubernetes/Dockerfile, Kubernetes/hosts, Kubernetes/simple-devops-image.yml, Kubernetes/kubernetes-tarun-deployment-GCP.yml, Kubernetes/kubernetes-tarun-service-GCP.yml (Jenkins instance path: /var/lib/jenkins/workspace/Deploy_on_Kuberenetes_CI)
        - Remove prefix: Kubernetes
        - Remove Directory: //opt/kubernetes
+       
+     ![image](https://user-images.githubusercontent.com/92631457/186776133-2825be20-bde0-46a3-be3b-3826f2cf7543.png)
+
      - SSH Server
        - Name: ansible-server
        - Source file: webapp/target/*.war
@@ -325,16 +331,23 @@ Part-3 CI/CD Using Git, Jenkins, Maven, Docker, Ansible and Kubernetes!
        - Remove Directory: //opt/kubernetes
        - Exec Command:
      ```sh
-        ansible-playbook -i /opt/kubernetes/hosts /opt/kubernetes/create-simple-devops-image.yml;
-     ```
-     
-    ### Create a Jenkins Job -- CD Job(Freestyle Project)
+        ansible-playbook -i /opt/kubernetes/hosts /opt/kubernetes/create-simple-devops-image.yml
+        ```
+      ![image](https://user-images.githubusercontent.com/92631457/186776245-f585dda3-d56c-44b5-9320-cc3b7f5b140b.png)
 
-       - Project name: deploy_on_k8s_cd
-       - Github Url: <--paste-your-github-url-here-->
-       - Post build actions:
-         - Add post build action --> Send build artifacts over SSH.
-         - SSH Server
+     
+   ### Create a Jenkins Job -- CD Job(Freestyle Project)
+
+ - Project name: deploy_on_k8s_cd
+      - Github Url: https://github.com/tarunk0/CI-CD-Using-GIT-Jenkins-Maven-Docker-Ansible-K8S.git
+      
+       ![image](https://user-images.githubusercontent.com/92631457/186775335-3913e6b0-45ac-42bc-a5cc-af7eab4b1ccd.png)
+
+      - Post build actions:
+      - Add post build action --> Send build artifacts over SSH.
+       ![image](https://user-images.githubusercontent.com/92631457/186775495-678533d1-f074-47eb-b986-f6a8dd5e389a.png)
+
+      - SSH Server
            - Name: k8s-server
            - Source file: Kubernetes/tarun-deploy.yml, Kubernetes/tarun-service.yml (Jenkins instance path: /var/lib/jenkins/workspace/Deploy_on_Kuberenetes_CI)
            - Remove prefix: Kubernetes
@@ -346,18 +359,20 @@ Part-3 CI/CD Using Git, Jenkins, Maven, Docker, Ansible and Kubernetes!
             ansible-playbook -i /opt/kubernetes/hosts /opt/kubernetes/kubernetes-tarun-deployment-GCP.yml;
              ansible-playbook -i /opt/kubernetes/hosts /opt/kubernetes/kubernetes-tarun-service-GCP.yml;
          ```
+    ![image](https://user-images.githubusercontent.com/92631457/186775820-e7e3e092-700c-4a43-ab93-bcf3bb5d3ae1.png) 
+
          
       ### Link -- CI and CD jobs on Jenkins to make it a CI/CD Pipeline:
-         - Add Post build action --> Build Other Projects
-         - Projects to build -- deploy_on_k8s_CD
-           - Select --> Trigger only if build is stable
+      - Add Post build action --> Build Other Projects
+      - Projects to build -- deploy_on_k8s_CD
+      - Select --> Trigger only if build is stable
         
-        - Test the URL:
+      - Test the URL:
         
-         - http://k8s-loadbalancer-public-ip>:8080/webapp
-         - http://k8s-Management-server-pub-ip>:8080/webapp
-         - http://k8s-node-1-public-ip>:8080/webapp
-         - http://k8s-node-2-public-ip>:8080/webapp
+       - http://k8s-loadbalancer-public-ip>:8080/webapp
+       - http://k8s-Management-server-pub-ip>:8080/webapp
+       - http://k8s-node-1-public-ip>:8080/webapp
+       - http://k8s-node-2-public-ip>:8080/webapp
     
     
     
