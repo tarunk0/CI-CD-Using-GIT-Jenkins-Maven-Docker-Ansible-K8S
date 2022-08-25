@@ -1,12 +1,12 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: amit-service
+  name: tarun-service
   labels:
-    app: amit-devops-project
+    app: tarun-devops-project
 spec:
   selector:
-    app: amit-devops-project
+    app: tarun-devops-project
   type: LoadBalancer
   ports:
     - port: 8080
