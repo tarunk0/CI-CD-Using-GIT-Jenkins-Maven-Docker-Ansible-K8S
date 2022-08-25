@@ -2,5 +2,5 @@
 localhost
 
 [kubernetes]
-35.226.226.61
+10.128.15.201
 #<kubernetes Public IP>
