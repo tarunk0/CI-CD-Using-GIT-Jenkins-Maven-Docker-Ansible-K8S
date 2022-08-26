@@ -357,7 +357,7 @@ Part-3 CI/CD Using Git, Jenkins, Maven, Docker, Ansible and Kubernetes!
            - Exec Command:
          ```sh
             ansible-playbook -i /opt/kubernetes/hosts /opt/kubernetes/kubernetes-tarun-deployment-GCP.yml;
-             ansible-playbook -i /opt/kubernetes/hosts /opt/kubernetes/kubernetes-tarun-service-GCP.yml;
+            ansible-playbook -i /opt/kubernetes/hosts /opt/kubernetes/kubernetes-tarun-service-GCP.yml;
          ```
     ![image](https://user-images.githubusercontent.com/92631457/186775820-e7e3e092-700c-4a43-ab93-bcf3bb5d3ae1.png) 
 
