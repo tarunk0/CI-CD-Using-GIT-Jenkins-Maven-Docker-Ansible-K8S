@@ -176,7 +176,7 @@ Part-3 CI/CD Using Git, Jenkins, Maven, Docker, Ansible and Kubernetes!
 ```
 ![image](https://user-images.githubusercontent.com/92631457/186759170-4e4a9ede-a2fb-4570-a4a4-000d860595e3.png)
 
-## STEP: 6
+## STEP: 5
    ### Create a Password less connection between Ansible to ansible localhost:
    
    - Log into Ansible Instance using user "ansadmin" and generate ssh key:
@@ -259,9 +259,9 @@ Part-3 CI/CD Using Git, Jenkins, Maven, Docker, Ansible and Kubernetes!
     ```sh
        ssh -i ~/.ssh/id_rsa root@<k8s-management-server-public-IP>
     ```
-    ![image](https://user-images.githubusercontent.com/92631457/186767364-d845abdf-a579-429c-a60b-4a65599c283e.png)
+ ![image](https://user-images.githubusercontent.com/92631457/186767364-d845abdf-a579-429c-a60b-4a65599c283e.png)
 
-     ## STEP: 7
+   ## STEP: 6
    ### Setup connection between Jenkins and Ansible and also set the MAVEN path
    
    - Manage Jenkins --> Configuration System --> SSH Servers
@@ -273,7 +273,7 @@ Part-3 CI/CD Using Git, Jenkins, Maven, Docker, Ansible and Kubernetes!
      - Password: admin
      - Click on Test Connection. 
     
-    ![Screenshot 2022-08-26 at 2 31 04 AM](https://user-images.githubusercontent.com/92631457/186768210-a7b80e6e-90b8-47e6-8796-ec11e5e26edd.png)
+ ![Screenshot 2022-08-26 at 2 31 04 AM](https://user-images.githubusercontent.com/92631457/186768210-a7b80e6e-90b8-47e6-8796-ec11e5e26edd.png)
 
 
 
@@ -294,7 +294,7 @@ Part-3 CI/CD Using Git, Jenkins, Maven, Docker, Ansible and Kubernetes!
    
    - Change hosts file in github and add k8s-management-server public ip
    
-   ![image](https://user-images.githubusercontent.com/92631457/186559887-ed622090-dc85-49b4-ae0c-919d9b94510c.png)
+   ![image](https://user-images.githubusercontent.com/92631457/186790125-24fb1748-b233-48b2-81ac-e784e8bcb84b.png)
 
    - Change hosts file in github and k8s-management-server public ip:
    - Login with Docker-Hub Credentials on ansible istance using "root user"
@@ -304,7 +304,7 @@ Part-3 CI/CD Using Git, Jenkins, Maven, Docker, Ansible and Kubernetes!
      
      ![image](https://user-images.githubusercontent.com/92631457/186560259-ba5a0e11-63f4-4436-a401-413b726e723a.png)
 
-## STEP: 8
+## STEP: 7
    ### Create a Jenkins Job -- CI Job(Maven Project)
    
    - Project name: deploy_on_k8s_ci
@@ -361,21 +361,30 @@ Part-3 CI/CD Using Git, Jenkins, Maven, Docker, Ansible and Kubernetes!
          ```
     ![image](https://user-images.githubusercontent.com/92631457/186775820-e7e3e092-700c-4a43-ab93-bcf3bb5d3ae1.png) 
 
-         
+   ## STEP: 8
       ### Link -- CI and CD jobs on Jenkins to make it a CI/CD Pipeline:
+      
       - Add Post build action --> Build Other Projects
       - Projects to build -- deploy_on_k8s_CD
       - Select --> Trigger only if build is stable
+
+ 
+      ![Screenshot 2022-08-26 at 5 40 15 AM](https://user-images.githubusercontent.com/92631457/186790303-80cfa501-2ff7-4696-88c2-1491ed5affeb.png)
         
       - Test the URL:
         
-       - http://k8s-loadbalancer-public-ip>:8080/webapp
-       - http://k8s-Management-server-pub-ip>:8080/webapp
-       - http://k8s-node-1-public-ip>:8080/webapp
-       - http://k8s-node-2-public-ip>:8080/webapp
-    
-    
-    
+          - http://k8s-loadbalancer-public-ip>:8080/webapp
+          - http://k8s-Management-server-pub-ip>:8080/webapp
+          - http://k8s-node-1-public-ip>:8080/webapp
+          - http://k8s-node-2-public-ip>:8080/webapp
+
+
+  ![Screenshot 2022-08-26 at 5 27 50 AM](https://user-images.githubusercontent.com/92631457/186790455-c403594f-8214-4112-b774-8e5cf4b4d0b6.png)
+
+  ![Screenshot 2022-08-26 at 5 28 21 AM](https://user-images.githubusercontent.com/92631457/186790502-527f486a-3555-4dc1-9e5c-ea2d8442d72d.png)
+   
+   - You can see the changes getting reflected in the above screenshot as soon as the commit was pushed on to the github. This completes our CI/CD Pipeline using the gcp cluster created by KOPS :)
+   - Thank you :))
     
     
     
